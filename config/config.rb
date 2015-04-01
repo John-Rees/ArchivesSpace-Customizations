@@ -6,6 +6,7 @@
 #AppConfig[:solr_index_directory] = proc { File.join(AppConfig[:data_directory], "solr_index") }
 #AppConfig[:solr_home_directory] = proc { File.join(AppConfig[:data_directory], "solr_home") }
 #AppConfig[:solr_indexing_frequency_seconds] = 30
+#AppConfig[:solr_facet_limit] = 100
 #
 AppConfig[:default_page_size] = 30
 #AppConfig[:max_page_size] = 250
@@ -30,8 +31,14 @@ AppConfig[:default_page_size] = 30
 #
 #AppConfig[:allow_other_unmapped] = false
 #
+#AppConfig[:db_url] = proc { AppConfig.demo_db_url }
 AppConfig[:db_url] = "jdbc:mysql://localhost:3306/archivesspace?user=as&password=as123&useUnicode=true&characterEncoding=UTF-8"
-AppConfig[:db_max_connections] = 100
+#
+#AppConfig[:db_max_connections] = 100
+## Set to true to log all SQL statements.  Note that this will have a performance
+## impact!
+#AppConfig[:db_debug_log] = false
+#
 ## Set to true if you have enabled MySQL binary logging
 #AppConfig[:mysql_binlog] = false
 #
@@ -127,7 +134,11 @@ AppConfig[:authentication_sources] = [{
 #AppConfig[:report_pdf_font_family] = "\"DejaVu Sans\", sans-serif"
 #
 ## Plug-ins to load. They will load in the order specified
-AppConfig[:plugins] = ['local', 'aspace_feedback', 'lcnaf']
+#AppConfig[:plugins] = ['local',  'aspace-public-formats', 'aspace_feedback', 'lcnaf']
+#
+## URL to direct the feedback link
+## You can remove this from the footer by making the value blank. 
+#AppConfig[:feedback_url] = "http://archivesspace.org/feedback"
 #
 #
 ## 
@@ -140,7 +151,7 @@ AppConfig[:plugins] = ['local', 'aspace_feedback', 'lcnaf']
 #
 #
 ## Allow an unauthenticated user to create an account
-#AppConfig[:allow_user_registration] = false
+#AppConfig[:allow_user_registration] = true
 #
 ## Help Configuration
 #AppConfig[:help_enabled] = true
@@ -151,16 +162,22 @@ AppConfig[:plugins] = ['local', 'aspace_feedback', 'lcnaf']
 ## If you are serving user-facing applications via proxy
 ## (i.e., another domain or port, or via https) it is 
 ## recommended that you record those URLs in your configuration
-AppConfig[:frontend_proxy_url] = "http://as.rockarch.org"
-AppConfig[:public_proxy_url] = "http://as.preview.rockarch.org"
+#AppConfig[:frontend_proxy_url] = "http://as.rockarch.org"
+#AppConfig[:public_proxy_url] = "http://as.preview.rockarch.org"
 #
 #AppConfig[:shared_storage] = proc { File.join(AppConfig[:data_directory], "shared") }
-#AppConfig[:import_job_path] = proc { File.join(AppConfig[:shared_storage], "import_jobs") }
-#AppConfig[:import_poll_seconds] = 5
-#AppConfig[:import_timeout_seconds] = 300
+#
+## formerly known as :import_job_path
+#AppConfig[:job_file_path] = proc { AppConfig.has_key?(:import_job_path) ? AppConfig[:import_job_path] : File.join(AppConfig[:shared_storage], "job_files") }
+#
+## this too
+#AppConfig[:job_poll_seconds] = proc { AppConfig.has_key?(:import_poll_seconds) ? AppConfig[:import_poll_seconds] : 5 }
+#
+## and this
+#AppConfig[:job_timeout_seconds] = proc { AppConfig.has_key?(:import_timeout_seconds) ? AppConfig[:import_timeout_seconds] : 300 }
 #
 ## By default, only allow jobs to be cancelled if we're running against MySQL (since we can rollback)
-#AppConfig[:import_jobs_cancelable] = proc { (AppConfig[:db_url] != AppConfig.demo_db_url).to_s }
+#AppConfig[:jobs_cancelable] = proc { (AppConfig[:db_url] != AppConfig.demo_db_url).to_s }
 #
 #AppConfig[:max_location_range] = 1000
 #
@@ -174,6 +191,8 @@ AppConfig[:public_proxy_url] = "http://as.preview.rockarch.org"
 #AppConfig[:compile_jasper] = false
 #
 ## There are some conditions that has caused tree nodes ( ArchivalObjects, DO
-## Components, and ClassificationTerms) to lose their Sequence pointers. This
-## will resequence these tree nodes on startup. 
-#AppConfig[:resequence_on_startup] = true
+## Components, and ClassificationTerms) to lose their sequence pointers and
+## position setting. This will resequence these tree nodes prior to startup.
+## If is recogmended that this be used very infrequently and should not be set
+## to true for all startups ( as it will take a considerable amount of time )
+#AppConfig[:resequence_on_startup] = false
