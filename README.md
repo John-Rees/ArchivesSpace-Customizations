@@ -1,7 +1,7 @@
 # ArchivesSpace-Customizations
 All local RAC Customizations
 
-config/config.rb controls the backend configuration of the system. Possible changes could include database name (dev vs production server), plugins to load and order, and any changes to LDAP.
+We have changed the ead_converter.rb to automatically publish notes and text unless marked internal in the EAD.
 
 locales/en.yml controls tooltip customizations and wording of various different sections (Total Processing Time).
 locales/enums/en.yml contains local changes to controlled value lists.
