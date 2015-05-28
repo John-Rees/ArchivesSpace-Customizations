@@ -6,14 +6,14 @@
     end
   end
 
-class METSSerializer < ASpaceExport::Serializer 
+class METSSerializer < ASpaceExport::Serializer
   serializer_for :mets
 
   private
 
   def mets(data, xml)
-    xml.mets('xmlns' => 'http://www.loc.gov/METS/', 
-             'xmlns:mods' => 'http://www.loc.gov/mods/v3', 
+    xml.mets('xmlns' => 'http://www.loc.gov/METS/',
+             'xmlns:mods' => 'http://www.loc.gov/mods/v3',
              'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
              'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
              'xsi:schemaLocation' => "http://www.loc.gov/standards/mets/mets.xsd"){
@@ -23,7 +23,7 @@ class METSSerializer < ASpaceExport::Serializer
       #     data.header_agent_notes.each do |note|
       #       xml.note note
       #     end
-      #   }        
+      #   }
       # }
 
       xml.dmdSec(:ID => data.dmd_id) {
@@ -34,7 +34,7 @@ class METSSerializer < ASpaceExport::Serializer
               mods_serializer.serialize_mods(data.mods_model, xml)
             end
           }
-        }          
+        }
       }
 
       data.children.each do |component_data|
@@ -50,7 +50,7 @@ class METSSerializer < ASpaceExport::Serializer
         end
       }
 
-      xml.fileSec { 
+      xml.fileSec {
         data.with_file_groups do |file_group|
           xml.fileGrp(:USE => file_group.use) {
             file_group.with_files do |file|
@@ -121,6 +121,7 @@ class METSSerializer < ASpaceExport::Serializer
               xml.copyrightInformation {
                 xml.copyrightStatus rights['ip_status']
                 xml.copyrightJurisdiction rights['jurisdiction']
+                #is this right?
                 xml.copyrightNote rights['type_note']
                 xml.copyrightApplicableDates {
                   xml.endDate rights['ip_expiration_date']
@@ -130,27 +131,26 @@ class METSSerializer < ASpaceExport::Serializer
               xml.rightsBasis 'License'
               xml.licenseInformation {
                 xml.licenseTerms rights['license_identifier_terms']
+                # is this right?
                 xml.licenseNote rights['type_note']
               }
             when 'institutional_policy'
               xml.rightsBasis 'Other'
-              xml.otherRightsInformation 
+              xml.otherRightsInformation
             when 'statute'
               xml.rightsBasis 'Statute'
               xml.statuteInformation {
                 xml.statuteCitation rights['statute_citation']
                 xml.statuteJurisdiction rights['jurisdiction']
+                # is this right?
                 xml.statuteNote rights['type_note']
               }
             end
             xml.rightsGranted {
-              xml.act rights['restrictions'] + rights['permissions']
-              xml.restriction 
-                if(rights['restrictions']) 
-                  'disallow' 
-                else 
-                  'allow'
-                end
+              # This isn't quite right yet
+              xml.act rights['type_note']
+              xml.restriction rights['restrictions']
+              xml.permission rights['permissions']
               xml.termOfGrant {
                 xml.startDate rights['restriction_start_date']
                 xml.endDate rights['restriction_end_date']
