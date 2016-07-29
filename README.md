@@ -8,6 +8,9 @@ We have changed `plugins/local/backend/model/ead_converter.rb` to automatically 
 `locales/en.yml` controls tooltip customizations and wording of various different sections (Total Processing Time).
 `locales/enums/en.yml` contains local changes to controlled value lists.
 
+##as-cors
+`plugins/as-cors/` adds Access-Control-Allow headers to HTTP requests using Rack middleware. Huge thanks to Mark Triggs for the assist on this plugin.
+
 ##rac_labels_model
 `plugins/local/backend/model/rac_labels_model` writes customized container label data to a Tab Separated Values file as a streaming export.
 
@@ -20,7 +23,7 @@ We have changed `plugins/local/backend/model/ead_converter.rb` to automatically 
 ##search_result_data.rb
 `plugins/local/frontend/models/search_result_data.rb` changes the order of the faceting in Accessions and Digital Objects browse pages, as well as the search results.
 
-##_header_repository.html.erb
+##header_repository.html.erb
 `plugins/local/frontend/views/shared/_header_repository.html.erb` changes the display of the header to remove all mention of Classifications
 
 ##plugin_init.rb
@@ -56,5 +59,3 @@ Patrick Galligan & Hillel Arnold
 ## License
 
 This content is released under MIT-License. Please see `MIT-License.md` for more information.
-
-
