@@ -6,7 +6,9 @@ We have changed `plugins/local/backend/model/ead_converter.rb` to automatically 
 `locales/en.yml` controls tooltip customizations and wording of various different sections (Total Processing Time).
 `locales/enums/en.yml` contains local changes to controlled value lists.
 
-`plugins/local/backend/model/rac_labels_model` writes customized container label data to a Tab Separated Values file as a streaming export.
+`plugins/as-cors/` adds Access-Control-Allow headers to HTTP requests using Rack middleware. Huge thanks to Mark Triggs for the assist on this plugin.
+
+`plugins/local/backend/model/rac_labels_model.rb` writes customized container label data to a Tab Separated Values file as a streaming export.
 
 `plugins/local/frontend/app/assets/tree.js.rb` contains a fix to the javascript hierarchy resource tree.
 `plugins/local/frontend/controllers/my_accessions_controller.rb` changes to the Accessions browse page to default to sorting by accession date descending.
