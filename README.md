@@ -12,7 +12,7 @@ We have changed `plugins/local/backend/model/ead_converter.rb` to automatically 
 `plugins/as-cors/` adds Access-Control-Allow headers to HTTP requests using Rack middleware. Huge thanks to Mark Triggs for the assist on this plugin.
 
 ##rac_labels_model
-`plugins/local/backend/model/rac_labels_model` writes customized container label data to a Tab Separated Values file as a streaming export.
+`plugins/local/backend/model/rac_labels_model` writes customized container label data to a Tab Separated Values file as a streaming 
 
 ##Hierarchy tree
 `plugins/local/frontend/app/assets/tree.js.rb` contains a fix to the javascript hierarchy resource tree.
