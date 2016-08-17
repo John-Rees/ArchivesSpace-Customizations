@@ -1,0 +1,14 @@
+<div class="container navbar-branding">                                                                                                                    
+  <%= image_tag "archivesspace/archivesspace.small.png", :class=>"img-responsive" %>                                                                       
+</div>                                                                                                                                                     
+                                                                                                                                                              
+                                                                                                                                                              
+<script>                                                                                                                                                   
+  $(function() {                                                                                                                                             
+     $(document).bind("expandcontainer.aspace", function( event, $container) {                                                                                
+       $loc = $('.subrecord-form', $container );                                                                                                              
+       $loc.removeClass('initialised'); 
+       $loc.init_subrecord_form();                                                                                           
+    });                                                                                                                                                      
+  });                                                                                                                                                      
+</script>  
