@@ -1,10 +1,10 @@
-#require_relative 'converter'
+require_relative 'converter'
 
 class EADConverter < Converter
 
-  #require 'securerandom'
-  #require_relative 'lib/xml_sax'
-  #include ASpaceImport::XML::SAX
+  require 'securerandom'
+  require_relative 'lib/xml_sax'
+  include ASpaceImport::XML::SAX
 
 
   def self.import_types(show_hidden = false)
@@ -52,11 +52,6 @@ class EADConverter < Converter
   	     .strip
   end
   
-  
-  # the act of ignoring is simply switching the ignore to false. 
-  def ignore 
-    @ignore = false
-  end
 
   # alright, wtf.
   # sometimes notes can have things like  lists jammed in them. we need to break those 
@@ -105,16 +100,7 @@ class EADConverter < Converter
       make :resource
     end
 
-
-    # we need to ignore everything on titlepage
-    %w{address author bibseries blockquote chronlist date edition list list/item list/defitem note
-      num p publisher sponsor subtitle table titleproper  }.each do |node_type|
-
-      with "titlepage/#{node_type}" do
-        @ignore = true 
-      end
-
-    end
+    ignore "titlepage"
 
 
     with 'archdesc' do
@@ -231,6 +217,7 @@ class EADConverter < Converter
         make :note_singlepart, {
           :type => 'physdesc',
           :persistent_id => att('id'),
+	  :publish => att('audience') != 'internal',
           :content => format_content( content.sub(/<head>.*?<\/head>/, '').strip )
         } do |note|
           set ancestor(:resource, :archival_object), :notes, note
@@ -321,11 +308,11 @@ class EADConverter < Converter
         make :note_multipart, {
           :type => node.name,
           :persistent_id => att('id'),
-		  :publish => att('audience') != 'internal',
+	  :publish => att('audience') != 'internal',
           :subnotes => {
-			:publish => att('audience') != 'internal',
-		    'jsonmodel_type' => 'note_text',
-			'content' => format_content( content )
+		    :publish => att('audience') != 'internal',
+            'jsonmodel_type' => 'note_text',
+            'content' => format_content( content )
           }
         } do |note|
           set ancestor(:resource, :archival_object), :notes, note
@@ -360,7 +347,6 @@ class EADConverter < Converter
 
 
     with 'chronlist' do
-      next ignore if @ignore 
       if  ancestor(:note_multipart)
         left_overs = insert_into_subnotes 
       else 
@@ -398,7 +384,6 @@ class EADConverter < Converter
 
 
     with 'list' do
-      next ignore if @ignore 
        
       if  ancestor(:note_multipart)
         left_overs = insert_into_subnotes 
@@ -437,24 +422,20 @@ class EADConverter < Converter
 
 
     with 'list/head' do |node|
-      next ignore if @ignore 
       set :title, format_content( inner_xml ) 
     end
 
 
     with 'defitem' do |node|
-      next ignore if @ignore 
       context_obj.items << {}
     end
 
     with 'defitem/label' do |node|
-      next ignore if @ignore 
       context_obj.items.last['label'] = format_content( inner_xml ) if context == :note_definedlist
     end
 
 
     with 'defitem/item' do |node|
-      next ignore if @ignore 
       context_obj.items.last['value'] =   format_content( inner_xml ) if context == :note_definedlist
     end
 
@@ -470,7 +451,6 @@ class EADConverter < Converter
 
 
     with 'date' do
-      next ignore if @ignore 
       if context == :note_chronology
         date = inner_xml
         context_obj.items.last['event_date'] = date
@@ -528,7 +508,6 @@ class EADConverter < Converter
 
 
     with 'author' do
-      next ignore if @ignore 
       set :finding_aid_author, inner_xml
     end
 
@@ -555,13 +534,11 @@ class EADConverter < Converter
 
 
     with 'sponsor' do
-      next ignore if @ignore 
       set :finding_aid_sponsor, format_content( inner_xml )
     end
 
 
     with 'titleproper' do
-      next ignore if @ignore 
       type = att('type')
       case type
       when 'filing'
@@ -571,16 +548,27 @@ class EADConverter < Converter
       end
     end
 
+    with 'subtitle' do
+      set :finding_aid_subtitle, format_content( inner_xml )
+    end
 
     with 'langusage' do
       set :finding_aid_language, format_content( inner_xml ) 
     end
 
 
-    with 'revisiondesc' do
-      set :finding_aid_revision_description, format_content( inner_xml )
+    with 'revisiondesc/change' do
+      make :revision_statement
+      set ancestor(:resource), :revision_statements, proxy
     end
 
+    with 'revisiondesc/change/item' do
+      set :description, format_content( inner_xml )
+    end
+    
+    with 'revisiondesc/change/date' do
+      set :date, format_content( inner_xml )
+    end
 
     with 'origination/corpname' do
       make_corp_template(:role => 'creator')

@@ -10,6 +10,40 @@ en:
     "true": "True"
     "false": "False"
 
+  user_defined: &user_defined_attributes
+    boolean_1: Boolean 1
+    boolean_2: Boolean 2
+    boolean_3: Boolean 3
+    integer_1: Integer 1
+    integer_2: Integer 2
+    integer_3: Integer 3
+    real_1: Real 1
+    real_2: Real 2
+    real_3: Real 3
+    string_1: Initials
+    string_2: Classification Number
+    string_3: Delivery Note
+
+
+    string_4: String 4
+    text_1: Accession History
+    text_2: Custodial History
+    text_3: Transitions and Deadlines
+    text_4: Special Formats
+    text_5: Text 5
+    date_1: Delivery Date
+    date_1_inline_help: e.g. YYYY-MM-DD
+    date_2: Date 2
+    date_2_inline_help: e.g. YYYY-MM-DD
+    date_3: Date 3
+    date_3_inline_help: e.g. YYYY-MM-DD
+    enum_1: Controlled Value 1
+    enum_2: Controlled Value 2
+    enum_3: Controlled Value 3
+    enum_4: Controlled Value 4
+    _singular: User Defined
+    _plural: User Defined
+
   content_items:
     content: Content
     content_tooltip: |
@@ -45,6 +79,8 @@ en:
 
   digital_object: &digital_object_attributes
     <<: *section_tooltips
+    user_defined:
+      <<: *user_defined_attributes
     title: Title
     title_tooltip: |
         <p>A title expression for the digital object.  May be transcribed from the object, or inherited from a source resource/resource component record, or provided by the repository.</p>
@@ -150,6 +186,8 @@ en:
     display_string: Display String
     has_unpublished_ancestor: Has Unpublished Ancestor?
     holdings: Holdings
+    owner_repo: Reserved For
+    owner_repo_tooltip: A repository that has reserved this location
     _singular: Location
     _plural: Locations
 
@@ -165,6 +203,18 @@ en:
     end: Range End
     _singular: Batch Locations
     _plural: Batch Locations
+
+  location_function:
+    location_function_type: Function Type
+    _singular: Function
+    _plural: Functions
+
+  function:
+    _singular: Function
+    _plural: Functions
+    _frontend:
+      action:
+        add: Add Function
 
   container_location:
     status: Status
@@ -208,6 +258,10 @@ en:
         <p>Agents may be searched using auto-complete, using a browse function, or may be created on demand.</p>
     terms: Terms
     title: Title
+    title_tooltip: |
+        <p>Optional field: Record here the authoritative title of a work in order to make a Name / Title heading for an agent linked as a creator or a subject:</p>
+        <p>For example,</p>
+        <ul><li>Shakespeare, William, 1564-1616. King Lear</li><li> Pound, Ezra, 1885-1972. Cantos</li><li> Lincoln, Abraham, 1809-1865. Emancipation Proclamation</li></ul>
     _singular: Agent Link
     _plural: Agent Links
 
@@ -523,11 +577,7 @@ en:
     post_code_tooltip: |
         <p>Mail or zip code for the contact person’s address.</p>
     telephone: Telephone
-    telephone_tooltip: |
-        <p>Telephone number for the contact person.</p>
     telephone_ext: Telephone Extension
-    telephone_ext_tooltip: |
-        <p>Telephone number extension for the contact person.</p>
     fax: Fax
     fax_tooltip: |
         <p>Fax number for the contact person.</p>
@@ -542,6 +592,16 @@ en:
         <p>Additional notes or contact information for the contact person.</p>
     _singular: Contact
     _plural: Contact Details
+
+  telephone: &telephone
+    _plural: Telephone Numbers
+    number_type: Number Type
+    number: Number
+    number_tooltip: |
+        <p>Telephone number for the contact person.</p>
+    ext: Telephone Extension
+    ext_tooltip: |
+        <p>Telephone number extension for the contact person.</p>
 
   note_attributes: &note_attributes
     label: Label
@@ -712,6 +772,7 @@ en:
     levels: Levels
 
   instance: &instance_attributes
+    is_representative: Is representative? 
     instance_type: Type
     instance_type_tooltip: |
         <p>A designation of the manifestation for the described materials. The instance designation is optional, but required to open and complete a container record for the material described.</p>
@@ -783,6 +844,8 @@ en:
         <li>SHA-256</li>
         </ul>
     identifier: Identifier
+    caption: Caption
+    is_representative: Representative
 
   extent: &extent_attributes
     portion: Portion
@@ -876,6 +939,13 @@ en:
     document_link: Document Link
     _plural: External Documents
     _singular: External Document
+
+  external_id:
+    _plural: External IDs
+    _singular: External ID
+    source: Source
+    external_id: External ID
+
 
   rights_statement: &rights_statement_attributes
     identifier: Identifier
@@ -1044,6 +1114,8 @@ en:
 
   accession:
     <<: *section_tooltips
+    user_defined:
+      <<: *user_defined_attributes
     accession_date: Accession Date
     accession_date_inline_help: e.g. YYYY-MM-DD
     accession_date_tooltip: |
@@ -1350,12 +1422,18 @@ en:
       manage_vocabulary_record: create/update/delete vocabulary records
       import_records: initiate import jobs
       cancel_importer_job: cancel an import job
+      update_container_record: create/update top container records
+      manage_container_record: delete/bulk update top container records
+      manage_container_profile_record: create/update/delete container profile records
+      manage_location_profile_record: create/update/delete location profile records
     _singular: Group
     _plural: Groups
 
   resource:
     <<: *archival_object_attributes
     <<: *section_tooltips
+    user_defined:
+      <<: *user_defined_attributes
     id_0: Identifier
     id_1: Identifier 2
     id_2: Identifier 3
@@ -1413,6 +1491,7 @@ en:
         <li>Inventory of the Papers of the Reese Family</li>
         <li>List of the Drawings and Models of the Simon and Simon Architectural Firm</li>
         </ul>
+    finding_aid_subtitle: Finding Aid Subtitle
     finding_aid_filing_title: Finding Aid Filing Title
     finding_aid_filing_title_tooltip: |
         <p>A modified version of the formal title of the finding aid. Designed to aid browsing and sorting of finding aid title lists.</p>
@@ -1444,12 +1523,6 @@ en:
     finding_aid_series_statement: Series Statement
     finding_aid_series_statement_tooltip: |
         <p>Indicates any bibliographic series to which the finding aid belongs.</p>
-    finding_aid_revision_date: Revision Date
-    finding_aid_revision_date_tooltip: |
-        <p>Specifies the date the finding aid was last revised.</p>
-    finding_aid_revision_description: Revision Description
-    finding_aid_revision_description_tooltip: |
-        <p>A description of the last revision(s) done to the finding aid.</p>
     finding_aid_status: Finding Aid Status
     finding_aid_status_tooltip: |
         <p>Indicates the status of the finding aid.</p>
@@ -1462,6 +1535,16 @@ en:
   related_accession:
     _singular: Related Accession
     _plural: Related Accessions
+
+  revision_statement:
+    _singlular: Revision Statement
+    _plural: Revision Statements
+    date: Revision Date
+    date_tooltip: |
+        <p>Specifies the date the finding aid was last revised.</p>
+    description: Revision Description
+    description_tooltip: |
+        <p>A description of the last revision(s) done to the finding aid.</p>
 
   related_resource:
     _singular: Related Resource
@@ -1618,7 +1701,7 @@ en:
         <ul>
         <li>Catalog record number: 21345672</li>
         </ul>
-    processing_hours_per_foot_estimate: Processing hrs/ft Estimate
+    processing_hours_per_foot_estimate: Processing hrs/unit Estimate
     processing_hours_per_foot_estimate_tooltip: |
         <p>The time a repository estimates that is required to process a unit of archival materials (e.g. a linear foot or an item in the case of digital objects).  The estimate may factor in, or not, the production of finding aids, catalog records, and other access products.</p>
     processing_total_extent: Processing Total Extent
@@ -1630,7 +1713,7 @@ en:
     processing_hours_total: Total Processing Hours
     processing_hours_total_short: Total hours
     processing_hours_total_tooltip: |
-        <p>The numerical result of multiplying "Processing hours per foot estimate" by "Processing total extent"</p>
+        <p>The numerical result of multiplying "Processing hours per foot estimate" by "Processing total extent". The value can be overwritten to reflect the actual processing time and not a value based on the estimated processing hrs/unit value.</p>
     processing_plan: Processing Plan
     processing_plan_tooltip: |
         <p>For recording a plan for processing of the archival unit. The plan may include an outline of the arrangement for the archival unit, as well as instructions for how to treat particular objects in the archival unit.  The plan might also specify different assignments for different repository staff.</p>
@@ -1640,7 +1723,7 @@ en:
         <li>Margaret's students will create descriptive records.</li>
         <li>Project manager will review, output, and load the encoded finding aid.</li>
         </ul>
-    processing_priority: Priority
+    processing_priority: Processing Priority
     processing_priority_tooltip: |
         <p>Indicates the priority assigned to processing of an archival unit.</p>
         <p>Values in this Controlled Value List may be modified.</p>
@@ -1676,37 +1759,6 @@ en:
     _singular: Collection Management
     _plural: Collection Management
 
-  user_defined:
-    boolean_1: Boolean 1
-    boolean_2: Boolean 2
-    boolean_3: Boolean 3
-    integer_1: Integer 1
-    integer_2: Integer 2
-    integer_3: Integer 3
-    real_1: Real 1
-    real_2: Real 2
-    real_3: Real 3
-    string_1: Initials
-    string_2: Classification Number
-    string_3: Delivery Note
-    string_4: String 4
-    text_1: Accession History
-    text_2: Custodial History
-    text_3: Transitions and Deadlines
-    text_4: Special Formas
-    text_5: Text 5
-    date_1: Delivery Date
-    date_1_inline_help: e.g. YYYY-MM-DD
-    date_2: Date 2
-    date_2_inline_help: e.g. YYYY-MM-DD
-    date_3: Date 3
-    date_3_inline_help: e.g. YYYY-MM-DD
-    enum_1: Controlled Value 1
-    enum_2: Controlled Value 2
-    enum_3: Controlled Value 3
-    enum_4: Controlled Value 4
-    _singular: User Defined
-    _plural: User Defined
 
   enumeration:
     # tooltips not displaying
@@ -1718,6 +1770,9 @@ en:
         <p>The value for the Controlled Value List you wish to add or edit.</p>
         <p>Whenever possible, values should be in lower case and have underscores ("_") instead of spaces. Translations for the values should be added to the locales file.</p>
     translation: Translation
+    position: Position
+    suppress: Suppress
+    unsuppress: Unsuppress
     merge_into: Merge Into
     _singular: Controlled Value List
     _plural: Controlled Value lists
@@ -1758,6 +1813,8 @@ en:
     show_suppressed_tooltip: Whether to show suppressed records that you have permission to see when browsing.
     publish: Publish?
     publish_tooltip: Whether to publish new records by default.
+    default_values: Pre-populate Records?
+    default_values_tooltip: Whether to pre-populate new Accession and Resource records with default values.
     accession_browse_section: Accession Browse Columns
     accession_browse_column_1: Column 1
     accession_browse_column_1_tooltip: The field to show in column 1.
@@ -1791,6 +1848,7 @@ en:
     digital_object_browse_column_4_tooltip: The field to show in column 4.
     digital_object_browse_column_5: Column 5
     digital_object_browse_column_5_tooltip: The field to show in column 5.
+    note_order_section: Note Order
     accept_default_message: '> Accept Default:'
     no_value: '[no value]'
     _singular: Defaults
@@ -1799,10 +1857,21 @@ en:
   reports:
     CreatedAccessionsReport: Created Accessions
     UnprocessedAccessionsReport: Unprocessed Accessions
+    LocationHoldingsReport: Location Holdings
+    location_holdings:
+      report_title: Report on containers shelved at one or more locations
+      repository_report_type: Repository
+      building_report_type: Building
+      single_location_report_type: Single Location
+      location_range_report_type: Range of Locations
+      search_range: Report on a range of locations
+      start_range: First location
+      end_range: Last location
     parameters:
       from: From
       from_tooltip:
       to: To
+      locations: Locations
     formats:
       json: JSON
       csv: CSV
@@ -1845,6 +1914,18 @@ en:
     cannot_be_previous_if_location_is_not_temporary: Cannot transfer to previous if the location is not temporary.
     authority_id_must_be_unique: Authority ID is already in use
     either_type_1_or_barcode_is_required: A container must contain Container 1 Type or Barcode.
+    must_be_a_number_with_no_more_than_nine_digits_and_five_decimal_places: Must be a number with no more than nine digits and five decimal places.
+    container_2_requires_both_a_type_and_indicator: You must provide an Indicator if you provide a Type
+    container_3_requires_both_a_type_and_indicator: You must provide an Indicator if you provide a Type
+    container_2_is_required_if_container_3_is_provided: You must provide a Child Container if you provide a Grandchild Container
+    a_barcode_must_be_unique_within_a_repository: A barcode must be unique within a repository
+    container_profile_name_not_unique: Container Profile name must be unique
+    must_be_a_number_with_no_more_than_2_decimal_places: Must be a number with no more than 2 decimal places
+    length_must_be_within_the_range_set_in_configuration: Length must be within the range set in configuration
+    is_required_if_status_is_previous: is required if 'Status' is 'Previous'
+    location_profile_name_not_unique: Location Profile name must be unique
+    must_be_a_positive_integer: Must be a positive integer
+
   job:
     _singular: Background Job
     _plural: Background Jobs
@@ -1859,6 +1940,7 @@ en:
     time_started: Time Started
     time_finished: Time Completed
     owner: Owner
+    show_description: Show Description
 
   import_job:
     _singular: Import Job
@@ -1892,6 +1974,7 @@ en:
       creators: Creator
       notes: Notes
       subjects: Subject
+      identifier: Identifier 
     boolean:
       published: Published?
       suppressed: Suppressed?
