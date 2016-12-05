@@ -33,11 +33,11 @@ en:
     text_5: Text 5
     date_1: Delivery Date
     date_1_inline_help: e.g. YYYY-MM-DD
-    date_2: Date 2
+    date_2: Processing Completion Date
     date_2_inline_help: e.g. YYYY-MM-DD
     date_3: Date 3
     date_3_inline_help: e.g. YYYY-MM-DD
-    enum_1: Controlled Value 1
+    enum_1: Processing Level
     enum_2: Controlled Value 2
     enum_3: Controlled Value 3
     enum_4: Controlled Value 4
@@ -1962,6 +1962,8 @@ en:
     record_type: Record or subrecord type
     property: Target property
 
+  print_to_pdf_job:
+    include_unpublished: Include Unpublished
   advanced_search:
     type:
       text: Text
