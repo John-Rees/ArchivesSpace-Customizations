@@ -286,7 +286,6 @@ en:
     name_source:
       cash: Canadian Subject Headings
       ingest: Unspecified ingested source
-      lcnaf: Library of Congress Name Authority Files
       lcshac: Library of Congress Children's Subject Headings
       local: Local sources
       naf: NACO Authority File
@@ -294,35 +293,23 @@ en:
       nal: National Agricultural Library subject headings
       rvm: Répertoire de vedettes-matière
       ulan: Union List of Artist Names
-      library of congress authority files: Library of Congress Authority Files
     name_rule:
       local: Local rules
       aacr: Anglo-American Cataloging Rules
       dacs: "Describing Archives: A Content Standard"
       rda: Resource Description and Access
     extent_extent_type:
-      bound volumes: Bound Volumes
-      box(es): Box(es)
       cassettes: Cassettes
       cubic_feet: Cubic Feet
-      document box(es): Document Box(es)
       files: Files
-      film reels: Film Reels
-      folder(s): Folder(s)
-      images: Images
-      item(s): Item(s)
       gigabytes: Gigabytes
       leaves: Leaves
       linear_feet: Linear Feet
       megabytes: Megabytes
-      microform reels: Microform Reels
-      pages: Pages
       photographic_prints: Photographic Prints
       photographic_slides: Photographic Slides
-      record cartons: Record Cartons
       reels: Reels
       sheets: Sheets
-      tapes: Tapes
       terabytes: Terabytes
       volumes: Volumes
     collection_management_processing_priority:
@@ -330,7 +317,6 @@ en:
       high: High
       medium: Medium
       low: Low
-      none: None
     collection_management_processing_status:
       none: Not specified
       new: New
@@ -351,7 +337,6 @@ en:
       sound_recording_nonmusical: Sound Recording (Non-musical)
       still_image: Still Image
       text: Text
-      three_dimensional_object: Three Dimensional Object
     digital_object_level:
       collection: Collection
       work: Work
@@ -414,25 +399,25 @@ en:
     instance_instance_type:
       accession: Accession
       audio: Audio
+      audiovisual materials: Audiovisual Materials
+      audiovisual_materials: Audiovisual Materials
       books: Books
-      bound volume: Bound Volume
       computer_disks: Computer Disks
       digital_object: Digital Object
       digital_object_link: Digital Object Link
-      documents: Documents
+      digital materials: Digital Materials
+      digital_materials: Digital Materials
       graphic_materials: Graphic Materials
       maps: Maps
-      microfilm: Microfilm
       microform: Microform
-      mixed materials: Mixed Materials
       mixed_materials: Mixed Materials
       moving_images: Moving Images
+      Moving Images: Moving Images
       realia: Realia
+      still image: Still Image
+      still_image: Still Image
       text: Text
-      scanned reports: Scanned Reports
     accession_acquisition_type:
-      donation: Donation
-      loan: Loan
       deposit: Deposit
       gift: Gift
       purchase: Purchase
@@ -468,23 +453,12 @@ en:
     container_type:
       box: Box
       carton: Carton
-      card: Card
       case: Case
-      disk: Disk
-      drawer: Drawer
-      dvd: DVD
-      envelope: Envelope
       folder: Folder
       frame: Frame
-      item: Item
       object: Object
-      package: Package
       page: Page
       reel: Reel
-      report: Report
-      roll: Roll
-      sheet: Sheet
-      tape: Tape
       volume: Volume
     file_version_use_statement:
       audio-clip: Audio-Clip
@@ -510,14 +484,6 @@ en:
       video-master-edited: Video-Master-Edited
       video-service: Video-Service
       video-streaming: Video-Streaming
-      image-service-highres: Image-Service-Highres
-      image-service-lowres: Image-Service-Lowres
-      image-service-medres: Image-Service-Midres
-      master: Master
-      master-edited: Master-Edited
-      service-edited: Service-Edited
-      text-master: Text-Master
-      text-service: Text-Service
     file_version_checksum_methods:
       md5: MD5
       sha-1: SHA-1
