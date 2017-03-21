@@ -56,6 +56,3 @@ Patrick Galligan & Hillel Arnold
 ## License
 
 This content is released under MIT-License. Please see `MIT-License.md` for more information.
-
-
-test
