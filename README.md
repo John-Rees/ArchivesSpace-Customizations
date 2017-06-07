@@ -1,40 +1,40 @@
 # ArchivesSpace-Customizations
 All local RAC Customizations for Archivesspace, including locales edits, templates, and headers.
 
-##ead_converter.rb
+## ead_converter.rb
 We have changed `plugins/local/backend/model/ead_converter.rb` to automatically publish notes and text unless marked internal in the EAD.
 
-##Locales
+## Locales
 `locales/en.yml` controls tooltip customizations and wording of various different sections (Total Processing Time).
 `locales/enums/en.yml` contains local changes to controlled value lists.
 
-##rac_labels_model
+## rac_labels_model
 `plugins/local/backend/model/rac_labels_model` writes customized container label data to a Tab Separated Values file as a streaming export.
 
-##Hierarchy tree
+## Hierarchy tree
 `plugins/local/frontend/app/assets/tree.js.rb` contains a fix to the javascript hierarchy resource tree.
 
-##my_accessions_controller.rb
+## my_accessions_controller.rb
 `plugins/local/frontend/controllers/my_accessions_controller.rb` changes to the Accessions browse page to default to sorting by accession date descending.
 
-##search_result_data.rb
+## search_result_data.rb
 `plugins/local/frontend/models/search_result_data.rb` changes the order of the faceting in Accessions and Digital Objects browse pages, as well as the search results.
 
-##_header_repository.html.erb
+## _header_repository.html.erb
 `plugins/local/frontend/views/shared/_header_repository.html.erb` changes the display of the header to remove all mention of Classifications
 
-##plugin_init.rb
+## plugin_init.rb
 `plugins/local/frontend/plugin_init.rb` calls the search_result_data.rb changes.
 
-##Requirements
+## Requirements
 *   ArchivesSpace
 
-##Installation
+## Installation
 To install the locales, navigate to your ArchivesSpace installation directory, and then overwrite /locales/en.yml and /locales/enums/en.yml.
 
 To install the other plugins, install them in the plugins directory of ArchivesSpace, replicating the directory structure the files are in on Github.
 
-##Usage
+## Usage
 After installing the files, stop Archivesspace. Then make sure your config.rb file has the line "AppConfig[:plugins] = ['local',  'lcnaf', 'aspace-public-formats']" uncommented, and that it includes 'local'.
 
 Restart ArchivesSpace
